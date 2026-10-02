@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import './ErrorBoundary.css';
 
 interface ErrorBoundaryFallbackUIProps {
@@ -7,6 +8,8 @@ interface ErrorBoundaryFallbackUIProps {
 export default function ErrorBoundaryFallbackUI({
   error
 }: ErrorBoundaryFallbackUIProps) {
+  const { t } = useTranslation('app');
+
   const onRefreshButtonPressed = () => {
     window.location.reload();
   };
@@ -36,18 +39,18 @@ export default function ErrorBoundaryFallbackUI({
     <div className="error-page-container">
       <div className="error-container">
         <div className="error-header">
-          <p>⚠️ Something went wrong!</p>
+          <p>⚠️ {t('errorPage.title')}</p>
         </div>
         <div className="error-content">
           <p>
-            <strong>Error:</strong> {error.message}
+            <strong>{t('errorPage.errorLabel')}</strong> {error.message}
           </p>
           {error.stack && (
             <details style={{ marginTop: '10px' }}>
               <summary
                 style={{ cursor: 'pointer', fontSize: '12px', color: '#666' }}
               >
-                Show technical details
+                {t('errorPage.showDetails')}
               </summary>
               <pre
                 style={{
@@ -78,36 +81,36 @@ export default function ErrorBoundaryFallbackUI({
           }}
         >
           <p style={{ margin: '0 0 10px 0', fontWeight: '600' }}>
-            📋 Before reporting this error:
+            📋 {t('errorPage.beforeReporting')}
           </p>
           <ul style={{ margin: '0 0 10px 0', paddingLeft: '20px' }}>
             <li>
-              Check if this error has already been reported{' '}
+              {t('errorPage.checkReported')}{' '}
               <a
                 href="https://github.com/Abrar74774/FossFLOW/issues"
                 target="_"
               >
-                here👀
+                {t('errorPage.here')}👀
               </a>
             </li>
-            <li>Try refreshing the page first</li>
-            <li>Only report if this is a new, unreported issue</li>
+            <li>{t('errorPage.tryRefresh')}</li>
+            <li>{t('errorPage.onlyNew')}</li>
           </ul>
           <p style={{ margin: 0, fontSize: '13px' }}>
-            <strong>Note:</strong> If you can't find a similar issue, please
-            report it with the details below.
+            <strong>{t('errorPage.noteLabel')}</strong>{' '}
+            {t('errorPage.noteMessage')}
           </p>
         </div>
 
         <div className="error-footer">
           <button className="error-button" onClick={onReportButtonPressed}>
-            📋 Report Issue
+            📋 {t('errorPage.report')}
           </button>
           <button
             className="error-button refresh-button"
             onClick={onRefreshButtonPressed}
           >
-            🔄 Refresh Page
+            🔄 {t('errorPage.refresh')}
           </button>
         </div>
       </div>

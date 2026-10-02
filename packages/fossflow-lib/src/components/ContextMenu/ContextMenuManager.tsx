@@ -4,6 +4,7 @@ import { generateId, findNearestUnoccupiedTile } from 'src/utils';
 import { useScene } from 'src/hooks/useScene';
 import { useModelStore } from 'src/stores/modelStore';
 import { VIEW_ITEM_DEFAULTS } from 'src/config';
+import { useTranslation } from 'src/stores/localeStore';
 import { ContextMenu } from './ContextMenu';
 
 interface Props {
@@ -22,6 +23,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
     return state.actions;
   });
   const uiStateApi = useUiStateStoreApi();
+  const { t } = useTranslation();
 
   const [ menuItemsBeforeClosing, setMenuItemsBeforeClosing ] = useState([{ label: '', onClick:() => {} }]);
 
@@ -36,7 +38,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
     if (contextMenu.type === 'SELECTION') {
       return [
         {
-          label: 'Copy Selection',
+          label: t('contextMenu.copySelection'),
           onClick: () => {
             scene.copyObjectsToClipboard(uiState);
             onClose();
@@ -45,16 +47,16 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
       ]
     } else if (contextMenu.type === 'ITEM' && contextMenu.item) {
       const { type } = contextMenu.item;
-      const itemTypeName = 
-        type === 'ITEM' ? 'Node' :
-        type === 'RECTANGLE' ? 'Rectangle' :
-        type === 'TEXTBOX' ? 'Text' :
+      const copyLabel =
+        type === 'ITEM' ? t('contextMenu.copyNode') :
+        type === 'RECTANGLE' ? t('contextMenu.copyRectangle') :
+        type === 'TEXTBOX' ? t('contextMenu.copyText') :
         undefined;
       
-        if (!itemTypeName) return menuItemsBeforeClosing;
+        if (!copyLabel) return menuItemsBeforeClosing;
       return [
         {
-          label: `Copy ${itemTypeName}`,
+          label: copyLabel,
           onClick: () => {
             const uiState = uiStateApi.getState();
             scene.copyObjectsToClipboard(uiState, contextMenu.item);
@@ -65,7 +67,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
     }
     return [
       {
-        label: 'Add Node',
+        label: t('contextMenu.addNode'),
         onClick: () => {
           if (!contextMenu) return;
           if (model.icons.length > 0) {
@@ -78,7 +80,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
             scene.placeIcon({
               modelItem: {
                 id: modelItemId,
-                name: 'Untitled',
+                name: t('defaults.nodeName'),
                 icon: firstIcon.id
               },
               viewItem: {
@@ -92,7 +94,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
         }
       },
       {
-        label: 'Add Rectangle',
+        label: t('contextMenu.addRectangle'),
         onClick: () => {
           if (!contextMenu) return;
           if (model.colors.length > 0) {
@@ -107,7 +109,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
         }
       },
       ...(uiState.isAnythingCopied ? [{ 
-        label: 'Paste',
+        label: t('contextMenu.paste'),
         onClick: () => {
           scene.pasteObjectsFromClipboard(uiState, scene);
           onClose();
@@ -115,7 +117,7 @@ export const ContextMenuManager = ({ anchorEl }: Props) => {
       }] : [])
     ]
   }, 
-  [contextMenu && contextMenu.type, contextMenu?.item]);
+  [contextMenu && contextMenu.type, contextMenu?.item, t]);
 
   useEffect(() => setMenuItemsBeforeClosing(menuItems), [menuItems]);
 

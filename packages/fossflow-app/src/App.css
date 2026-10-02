@@ -22,6 +22,8 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  /* Keep CJK labels from wrapping mid-word when the toolbar is narrow */
+  word-break: keep-all;
 }
 
 .toolbar button:hover {

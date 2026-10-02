@@ -1,4 +1,4 @@
-import { ModelStore, UiStateStore, Size } from 'src/types';
+import { ModelStore, UiStateStore, Size, LocaleProps } from 'src/types';
 import { useScene } from 'src/hooks/useScene';
 
 export interface State {
@@ -8,6 +8,7 @@ export interface State {
   rendererRef: HTMLElement;
   rendererSize: Size;
   isRendererInteraction: boolean;
+  locale: LocaleProps;
 }
 
 export type ModeActionsAction = (state: State) => void;

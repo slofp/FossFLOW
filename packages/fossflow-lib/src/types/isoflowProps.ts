@@ -21,6 +21,7 @@ export interface LocaleProps {
     clearCanvas: string;
     settings: string;
     gitHub: string;
+    menuButton: string;
   };
   helpDialog: {
     title: string;
@@ -201,8 +202,151 @@ export interface LocaleProps {
     canDisable: string;
     signature: string;
   };
+  toolMenu: {
+    undo: string;
+    redo: string;
+    select: string;
+    lassoSelect: string;
+    freehandLasso: string;
+    pan: string;
+    addItem: string;
+    rectangle: string;
+    connector: string;
+    text: string;
+  };
+  zoomControls: {
+    zoomIn: string;
+    zoomOut: string;
+    fitToScreen: string;
+    help: string;
+  };
+  contextMenu: {
+    copySelection: string;
+    copyNode: string;
+    copyRectangle: string;
+    copyText: string;
+    addNode: string;
+    addRectangle: string;
+    paste: string;
+  };
+  settingsDialog: {
+    title: string;
+    close: string;
+    zoomTab: string;
+    labelsTab: string;
+  };
+  labelSettings: {
+    description: string;
+    expandButtonPadding: string;
+    expandButtonPaddingDesc: string;
+    // {value} is replaced with the current padding
+    current: string;
+  };
+  exportImageDialog: {
+    title: string;
+    compatibilityTitle: string;
+    compatibilityMessage: string;
+    cropCanvasHint: string;
+    cropHint: string;
+    preview: string;
+    options: string;
+    showGrid: string;
+    expandDescriptions: string;
+    cropToContent: string;
+    backgroundColor: string;
+    transparentBackground: string;
+    exportQuality: string;
+    custom: string;
+    // {scale} and {dpi} are replaced with the current values
+    scale: string;
+    recrop: string;
+    cropApplied: string;
+    applyCrop: string;
+    clearSelection: string;
+    selectCropArea: string;
+    cancel: string;
+    downloadSvg: string;
+    downloadPng: string;
+    exportFailed: string;
+  };
+  itemControls: {
+    close: string;
+    delete: string;
+    color: string;
+    useCustomColor: string;
+    pickColorFromScreen: string;
+    node: {
+      updateIcon: string;
+      settings: string;
+      name: string;
+      description: string;
+      labelHeight: string;
+      iconSize: string;
+    };
+    connector: {
+      labels: string;
+      // {count} is replaced with the number of labels
+      labelCount: string;
+      addLabel: string;
+      noLabels: string;
+      // {index} is replaced with the label number
+      label: string;
+      text: string;
+      position: string;
+      heightOffset: string;
+      showDottedLine: string;
+      width: string;
+      lineStyle: string;
+      styleSolid: string;
+      styleDotted: string;
+      styleDashed: string;
+      showArrow: string;
+      // {count} is replaced with the number of connectors
+      connectorCount: string;
+      // {index} is replaced with the connector number
+      untitledConnector: string;
+    };
+    textBox: {
+      enterText: string;
+      textSize: string;
+      alignment: string;
+    };
+    iconSelection: {
+      searchIcons: string;
+      searchIconsQuick: string;
+      recentlyUsed: string;
+      // {count} is replaced with the number of matches
+      searchResults: string;
+      // {term} is replaced with the search term
+      noIconsFound: string;
+      helpSearching: string;
+      helpBrowsing: string;
+      importIcons: string;
+      treatAsIsometric: string;
+      treatAsIsometricHint: string;
+      dragHint: string;
+      flatIcon: string;
+    };
+  };
+  errors: {
+    invalidModel: string;
+    componentUnavailable: string;
+    richTextUnavailable: string;
+  };
+  // Names given to newly created items
+  defaults: {
+    nodeName: string;
+    viewName: string;
+  };
   // other namespaces can be added here
 }
+
+type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+};
+
+// A locale may leave keys out; they fall back to en-US
+export type PartialLocaleProps = DeepPartial<LocaleProps>;
 
 export interface IconPackManagerProps {
   lazyLoadingEnabled: boolean;
@@ -228,6 +372,6 @@ export interface IsoflowProps {
   enableDebugTools?: boolean;
   editorMode?: keyof typeof EditorModeEnum;
   renderer?: RendererProps;
-  locale?: LocaleProps;
+  locale?: PartialLocaleProps;
   iconPackManager?: IconPackManagerProps;
 }

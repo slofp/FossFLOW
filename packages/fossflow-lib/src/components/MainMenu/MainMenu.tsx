@@ -161,7 +161,7 @@ export const MainMenu = () => {
     <UiElement>
       <IconButton
         Icon={<MenuIcon />}
-        name="Main menu"
+        name={t('menuButton')}
         onClick={onToggleMenu}
         isActive={isMainMenuOpen}
       />

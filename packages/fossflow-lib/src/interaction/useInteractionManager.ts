@@ -20,6 +20,7 @@ import { TextBox } from './modes/TextBox';
 import { Lasso } from './modes/Lasso';
 import { FreehandLasso } from './modes/FreehandLasso';
 import { usePanHandlers } from './usePanHandlers';
+import { useLocale } from 'src/stores/localeStore';
 
 interface PendingMouseUpdate {
   mouse: Mouse;
@@ -111,6 +112,10 @@ export const useInteractionManager = () => {
   const { createTextBox } = scene;
   const { handleMouseDown: handlePanMouseDown, handleMouseUp: handlePanMouseUp } = usePanHandlers();
   const { scheduleUpdate, flushUpdate, cleanup } = useRAFThrottle();
+  // Kept in a ref so a language switch does not re-register the event listeners
+  const locale = useLocale();
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -306,7 +311,8 @@ export const useInteractionManager = () => {
         uiState,
         rendererRef: rendererRef.current,
         rendererSize,
-        isRendererInteraction: rendererRef.current === e.target
+        isRendererInteraction: rendererRef.current === e.target,
+        locale: localeRef.current
       };
 
       if (reducerTypeRef.current !== uiState.mode.type) {

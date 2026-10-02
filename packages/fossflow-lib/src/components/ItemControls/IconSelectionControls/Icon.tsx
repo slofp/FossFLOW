@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { Button, Typography } from '@mui/material';
 import { Icon as IconI } from 'src/types';
+import { useTranslation } from 'src/stores/localeStore';
 
 const SIZE = 50;
 
@@ -14,6 +15,8 @@ interface Props {
 }
 
 export const Icon = ({ icon, onClick, onMouseDown, onDoubleClick }: Props) => {
+  const { t } = useTranslation();
+
   return (
     <Button
       variant="text"
@@ -49,7 +52,7 @@ export const Icon = ({ icon, onClick, onMouseDown, onDoubleClick }: Props) => {
               }}
             >
               <Typography variant='body2'>
-                flat
+                {t('itemControls.iconSelection.flatIcon')}
               </Typography>
             </Box>
           )}

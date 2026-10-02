@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface StorageInfo {
   used: number;
@@ -7,6 +8,7 @@ interface StorageInfo {
 }
 
 export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const { t } = useTranslation('app');
   const [storageInfo, setStorageInfo] = useState<StorageInfo>({
     used: 0,
     diagrams: 0,
@@ -52,7 +54,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
   };
 
   const clearOldDiagrams = () => {
-    if (window.confirm('This will remove all saved diagrams. Are you sure?')) {
+    if (window.confirm(t('storageManager.confirmClear'))) {
       const keysToRemove = [];
       for (const key in localStorage) {
         if (key.startsWith('fossflow-')) {
@@ -61,7 +63,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
       }
       keysToRemove.forEach(key => localStorage.removeItem(key));
       calculateStorage();
-      alert('All diagrams cleared. Please reload the page.');
+      alert(t('storageManager.cleared'));
       window.location.reload();
     }
   };
@@ -101,10 +103,10 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
         maxWidth: '500px',
         width: '90%'
       }}>
-        <h2 style={{ marginTop: 0 }}>Storage Manager</h2>
+        <h2 style={{ marginTop: 0 }}>{t('storageManager.title')}</h2>
         
         <div style={{ marginBottom: '20px' }}>
-          <h3>Storage Usage</h3>
+          <h3>{t('storageManager.usage')}</h3>
           <div style={{
             backgroundColor: '#e0e0e0',
             borderRadius: '4px',
@@ -119,15 +121,20 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               transition: 'width 0.3s'
             }} />
           </div>
-          <p>Used: {formatBytes(storageInfo.used)} / ~5 MB ({storagePercentage.toFixed(1)}%)</p>
+          <p>
+            {t('storageManager.used', {
+              used: formatBytes(storageInfo.used),
+              percent: storagePercentage.toFixed(1)
+            })}
+          </p>
           <ul style={{ fontSize: '14px' }}>
-            <li>FossFLOW diagrams: {formatBytes(storageInfo.diagrams)}</li>
-            <li>Other data: {formatBytes(storageInfo.otherData)}</li>
+            <li>{t('storageManager.diagrams', { size: formatBytes(storageInfo.diagrams) })}</li>
+            <li>{t('storageManager.otherData', { size: formatBytes(storageInfo.otherData) })}</li>
           </ul>
         </div>
 
         <div style={{ marginBottom: '20px' }}>
-          <h3>Actions</h3>
+          <h3>{t('storageManager.actions')}</h3>
           <button 
             onClick={exportAllDiagrams}
             style={{
@@ -140,7 +147,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               cursor: 'pointer'
             }}
           >
-            Export All Diagrams
+            {t('storageManager.exportAll')}
           </button>
           <button 
             onClick={clearOldDiagrams}
@@ -153,7 +160,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
               cursor: 'pointer'
             }}
           >
-            Clear All Diagrams
+            {t('storageManager.clearAll')}
           </button>
         </div>
 
@@ -164,11 +171,11 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
           marginBottom: '20px',
           fontSize: '14px'
         }}>
-          <strong>Tips to save space:</strong>
+          <strong>{t('storageManager.tipsTitle')}</strong>
           <ul style={{ marginBottom: 0 }}>
-            <li>Export diagrams you don't need immediately</li>
-            <li>Delete old versions of diagrams</li>
-            <li>Clear browser cache if needed</li>
+            <li>{t('storageManager.tipExport')}</li>
+            <li>{t('storageManager.tipDelete')}</li>
+            <li>{t('storageManager.tipCache')}</li>
           </ul>
         </div>
 
@@ -184,7 +191,7 @@ export const StorageManager: React.FC<{ onClose: () => void }> = ({ onClose }) =
             width: '100%'
           }}
         >
-          Close
+          {t('storageManager.close')}
         </button>
       </div>
     </div>

@@ -1,4 +1,10 @@
 import React, { Component, ReactNode } from 'react';
+import { useTranslation } from 'src/stores/localeStore';
+
+const UnavailableMessage = () => {
+  const { t } = useTranslation('errors');
+  return <>{t('richTextUnavailable')}</>;
+};
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -84,7 +90,7 @@ class RichTextEditorErrorBoundary extends Component<ErrorBoundaryProps, ErrorBou
           backgroundColor: '#f9f9f9',
           color: '#666'
         }}>
-          Rich text editor temporarily unavailable
+          <UnavailableMessage />
         </div>
       );
     }

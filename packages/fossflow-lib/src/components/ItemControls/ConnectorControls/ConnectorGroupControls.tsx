@@ -17,6 +17,7 @@ import { getConnectorLabels } from 'src/utils';
 import { ControlsContainer } from '../components/ControlsContainer';
 import { ConnectorControls } from './ConnectorControls';
 import { ConnectorGroupControls as ConnectorGroupControlsType } from 'src/types';
+import { useTranslation } from 'src/stores/localeStore';
 
 interface ConnectorPickerRowProps {
   connectorId: string;
@@ -34,15 +35,18 @@ const ConnectorPickerRow = memo(function ConnectorPickerRow({
   const connector = useConnector(connectorId);
   const colorData = useColor(connector?.color);
   const labels = connector ? getConnectorLabels(connector) : [];
+  const { t } = useTranslation();
 
   const displayColor = connector?.customColor || colorData?.value || '#9e9e9e';
-  const primaryText = labels[0]?.text || `Connector ${index + 1}`;
+  const primaryText =
+    labels[0]?.text ||
+    t('itemControls.connector.untitledConnector').replace('{index}', String(index + 1));
   const styleLabel =
     connector?.style === 'DASHED'
-      ? 'Dashed'
+      ? t('itemControls.connector.styleDashed')
       : connector?.style === 'DOTTED'
-        ? 'Dotted'
-        : 'Solid';
+        ? t('itemControls.connector.styleDotted')
+        : t('itemControls.connector.styleSolid');
 
   const handleClick = useCallback(() => {
     onToggleFocus(connectorId);
@@ -94,6 +98,7 @@ export const ConnectorGroupControls = memo(function ConnectorGroupControls({
   const uiStateActions = useUiStateStore((state) => {
     return state.actions;
   });
+  const { t } = useTranslation();
 
   const handleClose = useCallback(() => {
     uiStateActions.setItemControls(null);
@@ -124,7 +129,7 @@ export const ConnectorGroupControls = memo(function ConnectorGroupControls({
         }}
       >
         <Typography variant="subtitle2" color="text.primary">
-          {controls.ids.length} Connectors
+          {t('itemControls.connector.connectorCount').replace('{count}', String(controls.ids.length))}
         </Typography>
         <MUIIconButton size="small" onClick={handleClose}>
           <CloseIcon fontSize="small" />

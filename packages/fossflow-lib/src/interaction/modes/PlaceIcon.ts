@@ -23,7 +23,7 @@ export const PlaceIcon: ModeActions = {
       uiState.actions.setItemControls(null);
     }
   },
-  mouseup: ({ uiState, scene }) => {
+  mouseup: ({ uiState, scene, locale }) => {
     if (uiState.mode.type !== 'PLACE_ICON') return;
 
     if (uiState.mode.id !== null) {
@@ -40,7 +40,7 @@ export const PlaceIcon: ModeActions = {
         scene.placeIcon({
           modelItem: {
             id: modelItemId,
-            name: 'Untitled',
+            name: locale.defaults.nodeName,
             icon: uiState.mode.id
           },
           viewItem: {

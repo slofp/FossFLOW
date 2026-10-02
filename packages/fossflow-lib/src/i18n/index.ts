@@ -10,6 +10,7 @@ import plPL from './pl-PL';
 import idID from './id-ID';
 import itIT from './it-IT';
 import trTR from './tr-TR';
+import jaJP from './ja-JP';
 
 const locales = {
     'en-US': enUS,
@@ -23,7 +24,8 @@ const locales = {
     'pl-PL': plPL,
     'id-ID': idID,
     'it-IT': itIT,
-    'tr-TR': trTR
+    'tr-TR': trTR,
+    'ja-JP': jaJP
 };
 
 export default locales;

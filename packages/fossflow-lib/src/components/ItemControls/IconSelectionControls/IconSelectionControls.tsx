@@ -12,6 +12,7 @@ import { Close as CloseIcon, FileUpload as FileUploadIcon } from '@mui/icons-mat
 import { Icons } from './Icons';
 import { IconGrid } from './IconGrid';
 import { generateId } from 'src/utils';
+import { useTranslation } from 'src/stores/localeStore';
 
 export const IconSelectionControls = () => {
   const uiStateActions = useUiStateStore((state) => {
@@ -26,6 +27,7 @@ export const IconSelectionControls = () => {
   const { setFilter, filteredIcons, filter } = useIconFiltering();
   const { iconCategories } = useIconCategories();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
   const [treatAsIsometric, setTreatAsIsometric] = useState(true);
   const [iconScale, setIconScale] = useState(100);
   const [showAlert, setShowAlert] = useState(() => {
@@ -188,7 +190,7 @@ export const IconSelectionControls = () => {
         >
           {/* Close button */}
           <MUIIconButton
-            aria-label="Close"
+            aria-label={t('itemControls.close')}
             onClick={() => {
               return uiStateActions.setItemControls(null);
             }}
@@ -234,7 +236,7 @@ export const IconSelectionControls = () => {
             onClick={handleImportClick}
             fullWidth
           >
-            Import Icons
+            {t('itemControls.iconSelection.importIcons')}
           </Button>
           <FormControlLabel
             control={
@@ -246,13 +248,13 @@ export const IconSelectionControls = () => {
             }
             label={
               <Typography variant="body2">
-                Treat as isometric (3D view)
+                {t('itemControls.iconSelection.treatAsIsometric')}
               </Typography>
             }
             sx={{ mt: 1, ml: 0 }}
           />
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-            Uncheck for flat icons (logos, UI elements)
+            {t('itemControls.iconSelection.treatAsIsometricHint')}
           </Typography>
         </Box>
         
@@ -271,7 +273,7 @@ export const IconSelectionControls = () => {
             onClose={dismissAlert}
             sx={{ cursor: 'pointer', mt: 1 }}
           >
-            You can drag and drop any item below onto the canvas.
+            {t('itemControls.iconSelection.dragHint')}
           </Alert>
         )}
       </Section>

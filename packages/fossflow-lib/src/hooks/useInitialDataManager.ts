@@ -13,10 +13,15 @@ import { useModelStore } from 'src/stores/modelStore';
 import { useView } from 'src/hooks/useView';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { modelSchema } from 'src/schemas/model';
+import { useLocale } from 'src/stores/localeStore';
 
 export const useInitialDataManager = () => {
   const [isReady, setIsReady] = useState(false);
   const prevInitialData = useRef<InitialData | undefined>(undefined);
+  // Read through a ref so switching language does not change `load` and trigger a reload
+  const locale = useLocale();
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
   const model = useModelStore((state) => {
     return state;
   });
@@ -62,7 +67,7 @@ export const useInitialDataManager = () => {
         // TODO: let's get better at reporting error messages here (starting with how we present them to users)
         // - not in console but in a modal
         console.log(validationResult.error.errors);
-        window.alert('There is an error in your model.');
+        window.alert(localeRef.current.errors.invalidModel);
         return;
       }
 
@@ -94,7 +99,7 @@ export const useInitialDataManager = () => {
       if (initialData.views.length === 0) {
         const updates = reducers.view({
           action: 'CREATE_VIEW',
-          payload: {},
+          payload: { name: localeRef.current.defaults.viewName },
           ctx: {
             state: { model: initialData, scene: INITIAL_SCENE_STATE },
             viewId: generateId()

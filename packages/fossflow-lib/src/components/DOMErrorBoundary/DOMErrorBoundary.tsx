@@ -1,4 +1,10 @@
 import React, { Component, ReactNode } from 'react';
+import { useTranslation } from 'src/stores/localeStore';
+
+const UnavailableMessage = () => {
+  const { t } = useTranslation('errors');
+  return <>{t('componentUnavailable')}</>;
+};
 
 interface DOMErrorBoundaryProps {
   children: ReactNode;
@@ -101,7 +107,7 @@ class DOMErrorBoundary extends Component<DOMErrorBoundaryProps, DOMErrorBoundary
               color: '#666'
             }}
           >
-            Component temporarily unavailable due to rendering errors
+            <UnavailableMessage />
           </div>
         )
       );

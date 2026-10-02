@@ -1,17 +1,33 @@
-import React, { createContext, useContext, ReactNode } from 'react';
-import { LocaleProps } from '../types/isoflowProps';
+import React, { createContext, useContext, useMemo, ReactNode } from 'react';
+import { LocaleProps, PartialLocaleProps } from '../types/isoflowProps';
 import enUS from '../i18n/en-US';
 
 const LocaleContext = createContext<LocaleProps>(enUS);
 
 interface LocaleProviderProps {
-  locale: LocaleProps;
+  locale: PartialLocaleProps;
   children: ReactNode;
 }
 
+// Fill in any keys the locale does not translate with the en-US text
+const withFallback = <T extends object>(fallback: T, locale: object): T => {
+  const merged: Record<string, unknown> = { ...(fallback as Record<string, unknown>) };
+  for (const [key, value] of Object.entries(locale)) {
+    const base = merged[key];
+    if (value && typeof value === 'object' && base && typeof base === 'object') {
+      merged[key] = withFallback(base, value);
+    } else if (value !== undefined) {
+      merged[key] = value;
+    }
+  }
+  return merged as T;
+};
+
 export const LocaleProvider: React.FC<LocaleProviderProps> = ({ locale, children }) => {
+  const value = useMemo(() => withFallback(enUS, locale), [locale]);
+
   return (
-    <LocaleContext.Provider value={locale}>
+    <LocaleContext.Provider value={value}>
       {children}
     </LocaleContext.Provider>
   );
@@ -45,7 +61,12 @@ export function useTranslation<K extends keyof LocaleProps>(
 
 export function useTranslation<K extends keyof LocaleProps>(namespace?: K) {
   const locale = useLocale();
-  
+
+  // Memoized so `t` stays stable and can be used in hook dependencies
+  return useMemo(() => createTranslation(locale, namespace), [locale, namespace]);
+}
+
+function createTranslation<K extends keyof LocaleProps>(locale: LocaleProps, namespace?: K) {
   if (namespace) {
     // Return scoped translation function for specific namespace
     const namespaceData = locale[namespace];

@@ -1,6 +1,6 @@
-import { LocaleProps } from '../types/isoflowProps';
+import { PartialLocaleProps } from '../types/isoflowProps';
 
-const locale: LocaleProps = {
+const locale: PartialLocaleProps = {
   common: {
     exampleText: "Este es un texto de ejemplo"
   },

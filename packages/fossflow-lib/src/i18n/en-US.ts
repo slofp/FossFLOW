@@ -13,7 +13,8 @@ const locale: LocaleProps = {
     exportImage: "Export as image",
     clearCanvas: "Clear the canvas",
     settings: "Settings",
-    gitHub: "GitHub"
+    gitHub: "GitHub",
+    menuButton: "Main menu"
   },
   helpDialog: {
     title: "Keyboard Shortcuts & Help",
@@ -193,6 +194,133 @@ const locale: LocaleProps = {
     configPath2: "in the top left to access Configuration.",
     canDisable: "You can disable this behaviour if you wish.",
     signature: "-Stan"
+  },
+  toolMenu: {
+    undo: "Undo",
+    redo: "Redo",
+    select: "Select",
+    lassoSelect: "Lasso select",
+    freehandLasso: "Freehand lasso",
+    pan: "Pan",
+    addItem: "Add item",
+    rectangle: "Rectangle",
+    connector: "Connector",
+    text: "Text"
+  },
+  zoomControls: {
+    zoomIn: "Zoom in",
+    zoomOut: "Zoom out",
+    fitToScreen: "Fit to screen",
+    help: "Help"
+  },
+  contextMenu: {
+    copySelection: "Copy Selection",
+    copyNode: "Copy Node",
+    copyRectangle: "Copy Rectangle",
+    copyText: "Copy Text",
+    addNode: "Add Node",
+    addRectangle: "Add Rectangle",
+    paste: "Paste"
+  },
+  settingsDialog: {
+    title: "Settings",
+    close: "Close",
+    zoomTab: "Zoom",
+    labelsTab: "Labels"
+  },
+  labelSettings: {
+    description: "Configure label display settings",
+    expandButtonPadding: "Expand Button Padding",
+    expandButtonPaddingDesc: "Bottom padding when expand button is visible (prevents text overlap)",
+    current: "Current: {value} theme units"
+  },
+  exportImageDialog: {
+    title: "Export as image",
+    compatibilityTitle: "Browser Compatibility Notice",
+    compatibilityMessage: "For best results, please use Chrome or Edge. Firefox currently has compatibility issues with the export feature.",
+    cropCanvasHint: "Click and drag to select crop area",
+    cropHint: "Click and drag to select the area you want to export",
+    preview: "preview",
+    options: "Options",
+    showGrid: "Show grid",
+    expandDescriptions: "Expand descriptions",
+    cropToContent: "Crop to content",
+    backgroundColor: "Background color",
+    transparentBackground: "Transparent background",
+    exportQuality: "Export Quality (DPI)",
+    custom: "Custom",
+    scale: "Scale: {scale}x ({dpi} DPI)",
+    recrop: "Recrop",
+    cropApplied: "Crop applied successfully",
+    applyCrop: "Apply Crop",
+    clearSelection: "Clear Selection",
+    selectCropArea: "Select an area to crop, or uncheck \"Crop to content\" to use full image",
+    cancel: "Cancel",
+    downloadSvg: "Download as SVG",
+    downloadPng: "Download as PNG",
+    exportFailed: "Could not export image"
+  },
+  itemControls: {
+    close: "Close",
+    delete: "Delete",
+    color: "Color",
+    useCustomColor: "Use Custom Color",
+    pickColorFromScreen: "Pick color from screen",
+    node: {
+      updateIcon: "Update icon",
+      settings: "Settings",
+      name: "Name",
+      description: "Description",
+      labelHeight: "Label height",
+      iconSize: "Icon size"
+    },
+    connector: {
+      labels: "Labels",
+      labelCount: "{count} / 256 labels",
+      addLabel: "Add Label",
+      noLabels: "No labels. Click \"Add Label\" to create one.",
+      label: "Label {index}",
+      text: "Text",
+      position: "Position (%)",
+      heightOffset: "Height Offset",
+      showDottedLine: "Show Dotted Line",
+      width: "Width",
+      lineStyle: "Line Style",
+      styleSolid: "Solid",
+      styleDotted: "Dotted",
+      styleDashed: "Dashed",
+      showArrow: "Show Arrow",
+      connectorCount: "{count} Connectors",
+      untitledConnector: "Connector {index}"
+    },
+    textBox: {
+      enterText: "Enter text",
+      textSize: "Text size",
+      alignment: "Alignment"
+    },
+    iconSelection: {
+      searchIcons: "Search icons",
+      searchIconsQuick: "Search icons (press Enter to select)",
+      recentlyUsed: "RECENTLY USED",
+      searchResults: "SEARCH RESULTS ({count} icons)",
+      noIconsFound: "No icons found matching \"{term}\"",
+      helpSearching: "Use arrow keys to navigate • Enter to select • Double-click to select and close",
+      helpBrowsing: "Type to search • Click category to expand • Double-click to select and close",
+      importIcons: "Import Icons",
+      treatAsIsometric: "Treat as isometric (3D view)",
+      treatAsIsometricHint: "Uncheck for flat icons (logos, UI elements)",
+      dragHint: "You can drag and drop any item below onto the canvas.",
+      flatIcon: "flat"
+    }
+  },
+  errors: {
+    invalidModel: "There is an error in your model.",
+    componentUnavailable: "Component temporarily unavailable due to rendering errors",
+    richTextUnavailable: "Rich text editor temporarily unavailable"
+  },
+  defaults: {
+    nodeName: "Untitled",
+    viewName: "Untitled view"
   }
 };
 

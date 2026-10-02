@@ -48,6 +48,8 @@ function EditorPage() {
   // Initialize icon pack manager with core icons
   const iconPackManager = useIconPackManager(coreIcons);
   const { readonlyDiagramId } = useParams<{ readonlyDiagramId: string }>();
+  // Called first so `t` is available to the state initializers below
+  const { t, i18n } = useTranslation('app');
 
   const [diagrams, setDiagrams] = useState<SavedDiagram[]>([]);
   const [isDiagramsInitialized, setIsDiagramsInitialized] = useState<boolean>(false);
@@ -103,7 +105,7 @@ function EditorPage() {
 
     // Default state if no saved data
     return {
-      title: 'Untitled Diagram',
+      title: t('status.untitled'),
       icons: coreIcons,
       colors: defaultColors,
       items: [],
@@ -387,7 +389,7 @@ function EditorPage() {
 
     if (window.confirm(message)) {
       const emptyDiagram: DiagramData = {
-        title: 'Untitled Diagram',
+        title: t('status.untitled'),
         icons: iconPackManager.loadedIcons, // Use currently loaded icons
         colors: defaultColors,
         items: [],
@@ -584,9 +586,6 @@ function EditorPage() {
     );
   };
 
-  // i18n
-  const { t, i18n } = useTranslation('app');
-  
   // Get locale with fallback to en-US if not found
   const currentLocale = allLocales[i18n.language as keyof typeof allLocales] || allLocales['en-US'];
 
@@ -746,7 +745,7 @@ function EditorPage() {
                     ? 'pointer'
                     : 'not-allowed'
               }}
-              title="Save to current session only"
+              title={t('nav.saveSessionOnlyTooltip')}
             >
               {t('nav.quickSaveSession')}
             </button>

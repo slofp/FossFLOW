@@ -79,6 +79,10 @@ export const supportedLanguages = [
   {
     label: 'Türkçe',
     value: 'tr-TR'
+  },
+  {
+    label: '日本語',
+    value: 'ja-JP'
   }
 ];
 

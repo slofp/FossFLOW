@@ -1,0 +1,120 @@
+{
+    "nav": {
+        "newDiagram": "新規ダイアグラム",
+        "saveSessionOnly": "保存（セッションのみ）",
+        "loadSessionOnly": "読み込み（セッションのみ）",
+        "importFile": "ファイルをインポート",
+        "exportFile": "ファイルをエクスポート",
+        "quickSaveSession": "クイック保存（セッション）",
+        "serverStorage": "サーバーストレージ",
+        "saveSessionOnlyTooltip": "現在のセッションにのみ保存"
+    },
+    "status": {
+        "current": "現在",
+        "untitled": "無題のダイアグラム",
+        "modified": "変更あり",
+        "sessionStorageNote": "セッションストレージのみ - 永続的に保存するにはエクスポートしてください"
+    },
+    "dialog": {
+        "save": {
+            "title": "ダイアグラムを保存（現在のセッションのみ）",
+            "warningTitle": "重要",
+            "warningMessage": "この保存は一時的なもので、ブラウザを閉じると失われます。",
+            "warningExport": "作業内容を永続的に保存するには <strong>ファイルをエクスポート</strong> を使用してください。",
+            "placeholder": "ダイアグラム名を入力",
+            "btnSave": "保存",
+            "btnCancel": "キャンセル"
+        },
+        "load": {
+            "title": "ダイアグラムを読み込み（現在のセッションのみ）",
+            "noteTitle": "注意",
+            "noteMessage": "これらの保存データは一時的なものです。残しておきたいダイアグラムはエクスポートしてください。",
+            "noSavedDiagrams": "このセッションに保存されたダイアグラムはありません",
+            "updated": "更新日時",
+            "btnLoad": "読み込み",
+            "btnDelete": "削除",
+            "btnClose": "閉じる"
+        },
+        "export": {
+            "title": "ダイアグラムをエクスポート",
+            "recommendedTitle": "推奨",
+            "recommendedMessage": "作業内容を永続的に保存するための最適な方法です。",
+            "noteMessage": "エクスポートしたJSONファイルは、後でインポートしたり他の人と共有したりできます。",
+            "btnDownload": "JSONをダウンロード",
+            "btnCancel": "キャンセル"
+        },
+        "readOnly": {
+            "mode": "閲覧専用モード",
+            "failed": "ダイアグラムの読み込みに失敗しました"
+        }
+    },
+    "alert": {
+        "enterDiagramName": "ダイアグラム名を入力してください",
+        "diagramExists": "「{{name}}」という名前のダイアグラムがこのセッションに既に存在します。上書きされますが、続行しますか？",
+        "unsavedChanges": "保存されていない変更があります。読み込みを続行しますか？",
+        "createNewDiagram": "新しいダイアグラムを作成しますか？",
+        "unsavedChangesExport": "保存されていない変更があります。保存するには先にダイアグラムをエクスポートしてください。続行しますか？",
+        "confirmDelete": "このダイアグラムを削除してもよろしいですか？",
+        "storageFull": "ストレージがいっぱいです！ストレージマネージャーを開きます...",
+        "autoSaveFailed": "ストレージがいっぱいです！ストレージマネージャーで空き容量を確保してください。",
+        "beforeUnload": "保存されていない変更があります。このページを離れてもよろしいですか？",
+        "quotaExceeded": "ストレージの容量制限を超えました。重要なダイアグラムをエクスポートして、空き容量を確保してください。"
+    },
+    "diagramManager": {
+        "title": "ダイアグラム管理",
+        "serverStorage": "サーバーストレージ",
+        "localStorage": "ローカルストレージ",
+        "serverStorageNote": "ダイアグラムはサーバーに保存され、すべてのデバイスから利用できます",
+        "saveCurrent": "現在のダイアグラムを保存",
+        "loadingList": "ダイアグラムを読み込み中...",
+        "empty": "保存されたダイアグラムはありません",
+        "emptyHint": "現在のダイアグラムを保存して始めましょう",
+        "lastModified": "最終更新: {{date}}",
+        "load": "読み込み",
+        "loading": "読み込み中...",
+        "share": "共有",
+        "shareTooltip": "共有リンクをコピー",
+        "shareCopied": "共有リンクをクリップボードにコピーしました:\n{{url}}",
+        "delete": "削除",
+        "saveTitle": "ダイアグラムを保存",
+        "namePlaceholder": "ダイアグラム名",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "confirmOverwrite": "「{{name}}」という名前のダイアグラムは既に存在します。上書きされますが、続行しますか？",
+        "listFailed": "ダイアグラムの一覧を読み込めませんでした",
+        "loadFailed": "ダイアグラムを読み込めませんでした",
+        "saveFailed": "ダイアグラムを保存できませんでした",
+        "deleteFailed": "ダイアグラムを削除できませんでした"
+    },
+    "storageManager": {
+        "title": "ストレージマネージャー",
+        "usage": "ストレージ使用量",
+        "used": "使用量: {{used}} / 約 5 MB（{{percent}}%）",
+        "diagrams": "FossFLOW のダイアグラム: {{size}}",
+        "otherData": "その他のデータ: {{size}}",
+        "actions": "操作",
+        "exportAll": "すべてのダイアグラムをエクスポート",
+        "clearAll": "すべてのダイアグラムを削除",
+        "tipsTitle": "容量を節約するヒント:",
+        "tipExport": "すぐに使わないダイアグラムはエクスポートしておく",
+        "tipDelete": "古いバージョンのダイアグラムを削除する",
+        "tipCache": "必要に応じてブラウザのキャッシュを削除する",
+        "close": "閉じる",
+        "confirmClear": "保存されたダイアグラムがすべて削除されます。よろしいですか？",
+        "cleared": "すべてのダイアグラムを削除しました。ページを再読み込みしてください。"
+    },
+    "errorPage": {
+        "title": "問題が発生しました",
+        "errorLabel": "エラー:",
+        "showDetails": "技術的な詳細を表示",
+        "beforeReporting": "このエラーを報告する前に:",
+        "checkReported": "このエラーが既に報告されていないか確認してください",
+        "here": "こちら",
+        "tryRefresh": "まずページを再読み込みしてみてください",
+        "onlyNew": "未報告の新しい問題の場合のみ報告してください",
+        "noteLabel": "注意:",
+        "noteMessage": "同様の問題が見つからない場合は、以下の詳細を添えて報告してください。",
+        "report": "問題を報告",
+        "refresh": "ページを再読み込み"
+    }
+}
