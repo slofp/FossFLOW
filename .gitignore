@@ -23,3 +23,5 @@ stage/
 overlay/
 .claude
 .factory
+.wrangler/
+.dev.vars

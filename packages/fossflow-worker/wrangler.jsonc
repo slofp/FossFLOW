@@ -1,0 +1,46 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "fossflow",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+
+  // Built app (run `npm run build` at the repo root first)
+  "assets": {
+    "directory": "../fossflow-app/build",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    // Send every request, static assets included, through the Worker so authentication always applies
+    "run_worker_first": true
+  },
+
+  // Diagram storage used when ENABLE_SERVER_STORAGE is "true".
+  // Create the bucket first: npx wrangler r2 bucket create fossflow-diagrams
+  "r2_buckets": [
+    {
+      "binding": "DIAGRAMS_BUCKET",
+      "bucket_name": "fossflow-diagrams"
+    }
+  ],
+
+  "vars": {
+    // "true": save diagrams to the R2 bucket above. "false": browser session storage only
+    "ENABLE_SERVER_STORAGE": "true",
+
+    // "true":  HTTP Basic Auth with HTTP_AUTH_USER / HTTP_AUTH_PASSWORD
+    // "false": only allow requests carrying a valid Cloudflare Access JWT (CF_ACCESS_* below)
+    "HTTP_AUTH_ENABLE": "false",
+    "HTTP_AUTH_USER": "",
+    // Prefer storing the password as a secret: npx wrangler secret put HTTP_AUTH_PASSWORD
+    // (a var with the same name cannot coexist with the secret)
+    // "HTTP_AUTH_PASSWORD": "",
+
+    // Zero Trust team domain, e.g. "https://<your-team>.cloudflareaccess.com"
+    "CF_ACCESS_TEAM_DOMAIN": "",
+    // Application Audience (AUD) tag of the Access application protecting this Worker
+    "CF_ACCESS_AUD": ""
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

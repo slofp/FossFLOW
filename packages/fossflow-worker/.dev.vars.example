@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `wrangler dev`. Values here override "vars" in wrangler.jsonc.
+# Cloudflare Access does not run in front of `wrangler dev`, so use Basic Auth locally.
+HTTP_AUTH_ENABLE=true
+HTTP_AUTH_USER=admin
+HTTP_AUTH_PASSWORD=change-me

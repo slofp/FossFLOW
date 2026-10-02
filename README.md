@@ -65,6 +65,44 @@ docker run -p 80:80 \
 
 > **Note**: Both variables must be set to enable authentication. If either is empty, the app is accessible without login.
 
+## ☁️ Deploy to Cloudflare Workers
+
+`packages/fossflow-worker` serves the built app with Workers Static Assets and implements the same `/api` as the Docker backend, storing diagrams in R2. Every request (static files included) passes through the Worker's authentication.
+
+Settings live in `vars` of [`packages/fossflow-worker/wrangler.jsonc`](packages/fossflow-worker/wrangler.jsonc):
+
+| Variable | Description |
+| --- | --- |
+| `ENABLE_SERVER_STORAGE` | `"true"` saves diagrams to the R2 bucket bound as `DIAGRAMS_BUCKET` (`STORAGE_PATH` is not used). `"false"` keeps diagrams in the browser session only. |
+| `HTTP_AUTH_ENABLE` | `"true"`: HTTP Basic Auth with `HTTP_AUTH_USER` / `HTTP_AUTH_PASSWORD`. `"false"` (default): only requests carrying a valid Cloudflare Access JWT are allowed. |
+| `HTTP_AUTH_USER` / `HTTP_AUTH_PASSWORD` | Basic Auth credentials. Store the password as a secret: `npx wrangler secret put HTTP_AUTH_PASSWORD`. |
+| `CF_ACCESS_TEAM_DOMAIN` | Zero Trust team domain, e.g. `https://<your-team>.cloudflareaccess.com`. |
+| `CF_ACCESS_AUD` | Application Audience (AUD) tag of the Access application that protects the Worker. |
+
+If the settings for the selected auth mode are missing, every request is rejected with `500`.
+
+```bash
+npm install
+cd packages/fossflow-worker
+npx wrangler login
+npx wrangler r2 bucket create fossflow-diagrams   # only when ENABLE_SERVER_STORAGE is "true"
+# Edit wrangler.jsonc (and run `npx wrangler secret put HTTP_AUTH_PASSWORD` when using Basic Auth)
+cd ../..
+npm run deploy:worker    # builds lib + app, then runs `wrangler deploy`
+```
+
+**Cloudflare Access (`HTTP_AUTH_ENABLE` = `"false"`)**: in Zero Trust, add a self-hosted Access application for the Worker's custom domain (or its `workers.dev` route), then copy the team domain and the application's AUD tag into `CF_ACCESS_TEAM_DOMAIN` / `CF_ACCESS_AUD`. The Worker verifies the `Cf-Access-Jwt-Assertion` header itself, so hostnames not covered by Access are rejected with `403`.
+
+**Local development**: Access does not run in front of `wrangler dev`, so copy `packages/fossflow-worker/.dev.vars.example` to `.dev.vars` (Basic Auth) and run `npm run dev:worker`. R2 is emulated locally.
+
+**Migrating diagrams from Docker**: diagrams are stored as `<id>.json` at the bucket root, the same layout as `./diagrams`, so they can be copied as-is:
+
+```bash
+for f in diagrams/*.json; do
+  npx wrangler r2 object put "fossflow-diagrams/$(basename "$f")" --file "$f" --remote
+done
+```
+
 ## Quick Start (Local Development)
 
 ```bash
@@ -113,6 +151,10 @@ cd e2e-tests
 
 # Publishing
 npm run publish:lib  # Publish library to npm
+
+# Cloudflare Workers
+npm run dev:worker     # Build, then run the Worker locally (wrangler dev)
+npm run deploy:worker  # Build, then deploy the Worker (wrangler deploy)
 ```
 
 ## How to Use
